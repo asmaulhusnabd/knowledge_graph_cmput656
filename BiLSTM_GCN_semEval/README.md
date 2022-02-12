@@ -1,13 +1,11 @@
-Graph Convolution over Pruned Dependency Trees for Relation Extraction
+Graph Attention Auto-Encoder for Relation Extraction
 ============================
 
-This repo contains the *PyTorch* code for the paper [Graph Convolution over Pruned Dependency Trees Improves Relation Extraction](https://nlp.stanford.edu/pubs/zhang2018graph.pdf). 
+This repo contains the *PyTorch* code for project [Graph Attention Auto-Encoder for Relation Extraction]
 
-This paper/code introduces a graph convolutional neural network (GCN) over pruned dependency trees for the task of relation extraction. A special tree pruning technique called the Path-centric Pruning is also introduced to eliminate irrelevant information from the trees while maximally maintaining relevant information. Compared to sequence models such as various LSTM-based models, this GCN model makes use of dependency structures to bridge remote words, therefore improves performance for long-range relations. Compared to previous recursive models such as the TreeLSTM, this GCN model achieves better performance while being much eariser to parallelize and therefore much more efficient.
+This project/code introduces a novel approach where we apply Graph Attention Auto Encoder (GATE) upon the adjacency matrix of Graph Convolutional Networks (GCNs) and the feature vector of each node. We also use Bi-LSTM, which gives us a better contextual representation of the sentences Compared to sequence models such as various LSTM-based models.
 
 See below for an overview of the model architecture:
-
-![GCN Architecture](fig/architecture.png "GCN Architecture")
 
 ## Requirements
 
@@ -18,7 +16,7 @@ See below for an overview of the model architecture:
 
 ## Preparation
 
-The code requires that you have access to the TACRED dataset (LDC license required). The TACRED dataset is currently scheduled for public release via LDC in December 2018. For possible early access to this data please contact us at `yuhao.zhang ~at~ stanford.edu`. Once you have the TACRED data, please put the JSON files under the directory `dataset/tacred`. For completeness, we only include sample data files from the TACRED dataset in this repo.
+We include the SemEval Dataset.
 
 First, download and unzip GloVe vectors from the Stanford NLP group website, with:
 ```
@@ -70,18 +68,6 @@ python train.py --load --model_file saved_models/01/best_model.pt --optim sgd --
 
 The paper also includes comparisons to the position-aware attention LSTM (PA-LSTM) model for relation extraction. To reproduce the corresponding results, please refer to [this repo](https://github.com/yuhaozhang/tacred-relation).
 
-## Citation
 
-```
-@inproceedings{zhang2018graph,
- author = {Zhang, Yuhao and Qi, Peng and Manning, Christopher D.},
- booktitle = {Empirical Methods in Natural Language Processing (EMNLP)},
- title = {Graph Convolution over Pruned Dependency Trees Improves Relation Extraction},
- url = {https://nlp.stanford.edu/pubs/zhang2018graph.pdf},
- year = {2018}
-}
-```
 
-## License
 
-All work contained in this package is licensed under the Apache License, Version 2.0. See the included LICENSE file.
