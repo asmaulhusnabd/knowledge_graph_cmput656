@@ -1,10 +1,10 @@
-AGGCN for SemEval task 8
+Our Model for SemEval task 8
 ==========
   
 
 ## Requirements
 
-Our model was trained on GTX 1080 .  
+Our model was trained on GPU (compute canada) .  
 
 - Python 3 (tested on 3.6.8)
 
