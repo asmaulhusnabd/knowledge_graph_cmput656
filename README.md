@@ -20,7 +20,7 @@ Our model was trained on GPU from Compute Canada.
 - unzip, wget (for downloading only)
 
 
-There is no guarantee that the model is the same as we released and reported if you run the code on different environments (including hardware and software). If you train the model by using the default setting, you will get the exact same output.
+We added our evaluation result on the TACRED Dataset in tacred_evaluation_output.txt file. There is no guarantee that the model is the same as we released and reported if you run the code on different environments (including hardware and software). If you train the model by using the default setting, you will get the exact same output.
 
 ## Preparation
 
