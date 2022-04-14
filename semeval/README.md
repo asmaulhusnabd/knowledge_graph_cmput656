@@ -16,7 +16,7 @@ Our model was trained on GPU (compute canada) .
 
 - unzip, wget (for downloading only)
 
-There is no guarantee that the model is the same as we released and reported if you run the code on different environments (including hardware and software). 
+We added the evaluation result on the SemEval dataset in semeval_evaluation_output.txt file. There is no guarantee that the model is the same as we released and reported if you run the code on different environments (including hardware and software). 
 
 ## Preparation
 We have already put the JSON files under the directory `dataset/semeval`.
