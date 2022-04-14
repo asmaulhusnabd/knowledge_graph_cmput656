@@ -55,7 +55,7 @@ This will write vocabulary and word vectors as a numpy matrix into the dir `data
 To train our model, run (this bash file is prepared for running the code in compute canada):
 
 ```
-bash train_aggcn.sh 1
+sbatch train_aggcn.sh
 ```
 
   
