@@ -337,22 +337,75 @@ class MultiHeadAttention(nn.Module):
         super(MultiHeadAttention, self).__init__()
         assert d_model % h == 0
 
-        self.d_k = d_model // h
+       # self.d_k = d_model // h
+        self.d_model = d_model
         self.h = h
+        self.d_head = int(d_model/h)
         self.linears = clones(nn.Linear(d_model, d_model), 2)
         self.dropout = nn.Dropout(p=dropout)
 
-    def forward(self, query, key, mask=None):
+        self.query_proj = nn.Linear(d_model, d_model)
+        self.key_proj = nn.Linear(d_model, d_model)
+        self.value_proj = nn.Linear(d_model, d_model)
+        
+        self.u_bias = nn.Parameter(torch.Tensor(self.h, self.d_head))
+        self.v_bias = nn.Parameter(torch.Tensor(self.h, self.d_head))
+        torch.nn.init.xavier_uniform_(self.u_bias)
+        torch.nn.init.xavier_uniform_(self.v_bias)
+
+        self.out_proj = nn.Linear(d_model, d_model)
+
+
+
+    def forward(self, query, key, value, pos_emb, mask=None):
+
+        batch_size = query.size(0)
         if mask is not None:
             mask = mask.unsqueeze(1)
 
-        nbatches = query.size(0)
+       # nbatches = query.size(0)
 
-        query, key = [l(x).view(nbatches, -1, self.h, self.d_k).transpose(1, 2)
-                             for l, x in zip(self.linears, (query, key))]
-        # query = query.view(nbatches, -1, self.h, self.d_k).transpose(1, 2)
-        # key = key.view(nbatches, -1, self.h, self.d_k).transpose(1, 2)
-        attn = attention(query, key, mask=mask, dropout=self.dropout)
+        #query, key = [l(x).view(nbatches, -1, self.h, self.d_k).transpose(1, 2)
+                            # for l, x in zip(self.linears, (query, key))
+        query = self.query_proj(query).view(batch_size, -1, self.h, self.d_head).transpose(1, 2)
+        key = self.key_proj(key).view(batch_size, -1, self.h, self.d_head).transpose(1, 2)
+        value = self.value_proj(value).view(batch_size, -1, self.h, self.d_head).transpose(1, 2)
+        pos_emb = self.pos_proj(pos_emb).view(batch_size, -1, self.h, self.d_head).transpose(1, 2)
+
+        attn = self.attention(query, key, value, pos_emb, mask=mask, dropout=self.dropout)
 
         return attn
+
+
+
+    def attention(self, query, key, value, pos_emb, mask=None, dropout=None):
+        content_score = torch.matmul(query, key.transpose(-2, -1))
+        pos_score = torch.matmul(query, pos_emb.transpose(-2, -1))
+        pos_score = self._compute_relative_positional_encoding(pos_score)
+        d_k = query.size(-1)
+        
+        score = (content_score + pos_score) / math.sqrt(d_k)
+   # d_k = query.size(-1)
+    #scores = torch.matmul(query, key.transpose(-2, -1)) / math.sqrt(d_k)
+        if mask is not None:
+            score = score.masked_fill(mask == 0, -1e9)
+
+        p_attn = F.softmax(score, dim=-1)
+        if dropout is not None:
+            p_attn = dropout(p_attn)
+
+   # p_attn = torch.tanh(p_attn)
+
+        return p_attn
+
+
+    def _compute_relative_positional_encoding(self, pos_score):
+        batch_size, h, seq_length1, seq_length2 = pos_score.size()
+        zeros = pos_score.new_zeros(batch_size, h, seq_length1, 1)
+        padded_pos_score = torch.cat([zeros, pos_score], dim=-1)
+
+        padded_pos_score = padded_pos_score.view(batch_size, h, seq_length2 + 1, seq_length1)
+        pos_score = padded_pos_score[:, :, 1:].view_as(pos_score)
+
+        return pos_score
 
