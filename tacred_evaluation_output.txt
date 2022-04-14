@@ -1,0 +1,102 @@
+Vocab size 23043 loaded from file
+Loading data from dataset/tacred/test.json with batch size 50...
+311 batches created for dataset/tacred/test.json
+
+Running with the following configs:
+	data_dir : dataset/tacred
+	vocab_dir : dataset/vocab
+	emb_dim : 300
+	ner_dim : 30
+	pos_dim : 30
+	hidden_dim : 300
+	num_layers : 2
+	input_dropout : 0.5
+	gcn_dropout : 0.5
+	word_dropout : 0.04
+	topn : 10000000000.0
+	lower : False
+	heads : 3
+	sublayer_first : 2
+	sublayer_second : 4
+	pooling : max
+	pooling_l2 : 0.002
+	mlp_layers : 1
+	no_adj : False
+	rnn : True
+	rnn_hidden : 300
+	rnn_layers : 1
+	rnn_dropout : 0.5
+	lr : 0.7
+	lr_decay : 0.9
+	decay_epoch : 5
+	optim : sgd
+	num_epoch : 100
+	batch_size : 50
+	max_grad_norm : 5.0
+	log_step : 20
+	log : logs.txt
+	save_epoch : 100
+	save_dir : ./saved_models
+	id : 1
+	info : 
+	seed : 0
+	cuda : True
+	cpu : False
+	load : False
+	model_file : None
+	num_class : 42
+	vocab_size : 23043
+	model_save_dir : ./saved_models/01
+
+
+100%|██████████| 311/311 [00:12<00:00, 24.58it/s]
+Per-relation statistics:
+org:alternate_names                  P:  77.00%  R:  77.00%  F1:  77.00%  #: 213
+org:city_of_headquarters             P:  70.97%  R:  53.66%  F1:  61.11%  #: 82
+org:country_of_headquarters          P:  71.43%  R:  32.41%  F1:  44.59%  #: 108
+org:dissolved                        P: 100.00%  R:   0.00%  F1:   0.00%  #: 2
+org:founded                          P:  85.71%  R:  81.08%  F1:  83.33%  #: 37
+org:founded_by                       P:  59.76%  R:  72.06%  F1:  65.33%  #: 68
+org:member_of                        P:   0.00%  R:   0.00%  F1:   0.00%  #: 18
+org:members                          P: 100.00%  R:  12.90%  F1:  22.86%  #: 31
+org:number_of_employees/members      P:  87.50%  R:  36.84%  F1:  51.85%  #: 19
+org:parents                          P:  21.05%  R:   6.45%  F1:   9.88%  #: 62
+org:political/religious_affiliation  P:   0.00%  R:   0.00%  F1:   0.00%  #: 10
+org:shareholders                     P:  80.00%  R:  30.77%  F1:  44.44%  #: 13
+org:stateorprovince_of_headquarters  P:  65.91%  R:  56.86%  F1:  61.05%  #: 51
+org:subsidiaries                     P:  40.62%  R:  29.55%  F1:  34.21%  #: 44
+org:top_members/employees            P:  68.91%  R:  80.06%  F1:  74.06%  #: 346
+org:website                          P:  54.35%  R:  96.15%  F1:  69.44%  #: 26
+per:age                              P:  79.56%  R:  89.50%  F1:  84.24%  #: 200
+per:alternate_names                  P: 100.00%  R:   0.00%  F1:   0.00%  #: 11
+per:cause_of_death                   P:  72.00%  R:  34.62%  F1:  46.75%  #: 52
+per:charges                          P:  65.12%  R:  81.55%  F1:  72.41%  #: 103
+per:children                         P:  50.00%  R:  40.54%  F1:  44.78%  #: 37
+per:cities_of_residence              P:  49.39%  R:  42.86%  F1:  45.89%  #: 189
+per:city_of_birth                    P:  50.00%  R:  40.00%  F1:  44.44%  #: 5
+per:city_of_death                    P:  43.48%  R:  35.71%  F1:  39.22%  #: 28
+per:countries_of_residence           P:  47.11%  R:  38.51%  F1:  42.38%  #: 148
+per:country_of_birth                 P: 100.00%  R:   0.00%  F1:   0.00%  #: 5
+per:country_of_death                 P: 100.00%  R:  33.33%  F1:  50.00%  #: 9
+per:date_of_birth                    P:  63.64%  R:  77.78%  F1:  70.00%  #: 9
+per:date_of_death                    P:  64.71%  R:  40.74%  F1:  50.00%  #: 54
+per:employee_of                      P:  68.78%  R:  57.58%  F1:  62.68%  #: 264
+per:origin                           P:  54.61%  R:  62.88%  F1:  58.45%  #: 132
+per:other_family                     P:  20.83%  R:   8.33%  F1:  11.90%  #: 60
+per:parents                          P:  54.76%  R:  52.27%  F1:  53.49%  #: 88
+per:religion                         P:  60.61%  R:  42.55%  F1:  50.00%  #: 47
+per:schools_attended                 P:  57.89%  R:  36.67%  F1:  44.90%  #: 30
+per:siblings                         P:  48.78%  R:  36.36%  F1:  41.67%  #: 55
+per:spouse                           P:  53.95%  R:  62.12%  F1:  57.75%  #: 66
+per:stateorprovince_of_birth         P: 100.00%  R:  37.50%  F1:  54.55%  #: 8
+per:stateorprovince_of_death         P:  50.00%  R:  21.43%  F1:  30.00%  #: 14
+per:stateorprovinces_of_residence    P:  59.26%  R:  39.51%  F1:  47.41%  #: 81
+per:title                            P:  76.97%  R:  82.20%  F1:  79.50%  #: 500
+
+Final Score:
+Precision (micro): 65.872%
+   Recall (micro): 59.850%
+       F1 (micro): 62.717%
+test set evaluate result: 0.66	0.60	0.63
+Evaluation ended.
+
