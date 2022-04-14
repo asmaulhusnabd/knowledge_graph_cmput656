@@ -174,7 +174,7 @@ class AGGCN(nn.Module):
                 outputs = self.layers[i](adj, outputs)
                 layer_list.append(outputs)
             else:
-                attn_tensor = self.attn(outputs, outputs, src_mask)
+                attn_tensor = self.attn(outputs, outputs, outputs, outputs, src_mask)
                 attn_adj_list = [attn_adj.squeeze(1) for attn_adj in torch.split(attn_tensor, 1, dim=1)]
                 outputs = self.layers[i](attn_adj_list, outputs)
                 layer_list.append(outputs)
@@ -313,7 +313,7 @@ def batched_index_select(input, dim, index):
     index = index.view(views).expand(expanse)
     return torch.gather(input, dim, index)
 
-
+'''
 def attention(query, key, mask=None, dropout=None):
     d_k = query.size(-1)
     scores = torch.matmul(query, key.transpose(-2, -1)) / math.sqrt(d_k)
@@ -326,7 +326,7 @@ def attention(query, key, mask=None, dropout=None):
 
     return p_attn
 
-
+'''
 def clones(module, N):
     return nn.ModuleList([copy.deepcopy(module) for _ in range(N)])
 
